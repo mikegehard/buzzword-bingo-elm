@@ -2,3 +2,6 @@ build-artifacts
 node_modules
 elm-stuff
 compiled
+# This will be generated when you run in the reactor
+elm.js
+
