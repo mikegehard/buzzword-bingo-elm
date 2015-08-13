@@ -76,6 +76,7 @@ update action model =
     Sort ->
       { model | entries <- List.sortBy .points model.entries }
 
+    -- notice the pattern matching here on the Delete type
     Delete id ->
       let
         remainingEntries = List.filter (\e -> e.id /= id) model.entries
