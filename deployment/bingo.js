@@ -449,26 +449,29 @@ Elm.Bingo.make = function (_elm) {
              ,points: points
              ,wasSpoken: false};
    });
-   var initialModel = {_: {}
-                      ,entries: _L.fromArray([A3(newEntry,
-                                             "Doing Agile",
-                                             200,
-                                             2)
-                                             ,A3(newEntry,
-                                             "In The Cloud",
-                                             300,
-                                             3)
-                                             ,A3(newEntry,
-                                             "Future-Proof",
-                                             100,
-                                             1)
-                                             ,A3(newEntry,
-                                             "Rock-Star Ninja",
-                                             400,
-                                             4)])
-                      ,nextID: 5
-                      ,phraseInput: ""
-                      ,pointsInput: ""};
+   var initialModel = function () {
+      var initialEntries = _L.fromArray([A3(newEntry,
+                                        "Doing Agile",
+                                        200,
+                                        2)
+                                        ,A3(newEntry,
+                                        "In The Cloud",
+                                        300,
+                                        3)
+                                        ,A3(newEntry,
+                                        "Future-Proof",
+                                        100,
+                                        1)
+                                        ,A3(newEntry,
+                                        "Rock-Star Ninja",
+                                        400,
+                                        4)]);
+      return {_: {}
+             ,entries: initialEntries
+             ,nextID: $List.length(initialEntries) + 1
+             ,phraseInput: ""
+             ,pointsInput: ""};
+   }();
    var update = F2(function (action,
    model) {
       return function () {
@@ -538,7 +541,7 @@ Elm.Bingo.make = function (_elm) {
                                ,action._0]],
               model);}
          _U.badCase($moduleName,
-         "between lines 72 and 113");
+         "between lines 76 and 118");
       }();
    });
    var main = $StartApp.start({_: {}

@@ -4,22 +4,14 @@ module.exports = function(grunt) {
     elm: {
       compile: {
         files: {
-          "compiled/bingo.js": ["src/Bingo.elm", "src/BingoUtils.elm"]
+          "deployment/bingo.js": ["src/Bingo.elm", "src/BingoUtils.elm"]
         }
       }
     },
     watch: {
       elm: {
-        files: ["Bingo.elm", "BingoUtils.elm"],
+        files: ["src/Bingo.elm", "src/BingoUtils.elm"],
         tasks: ["elm"]
-      }
-    },
-    copy: {
-      deployment: {
-        files: [
-          {expand: true, cwd: 'src/', src: ['index.html', 'style.css'], dest: 'deployment/', flatten: true, filter: 'isFile'},
-          {expand: true, cwd: 'compiled/', src: ['*.js'], dest: 'deployment/', flatten: true, filter: 'isFile'}
-        ]
       }
     },
     clean: ["elm-stuff/build-artifacts"]
@@ -27,10 +19,8 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-elm');
 
   grunt.registerTask('default', ['elm']);
-  grunt.registerTask('build', ['elm', 'copy:deployment'])
 
 };

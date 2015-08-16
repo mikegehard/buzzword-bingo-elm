@@ -25,5 +25,5 @@ This is a little web server that we can use as a quick development environment.
 
 ## Deployment
 
-1. `grunt build`
+1. `grunt`
 2. `cf push buzzword-bingo-elm -p deployment/ -b staticfile_buildpack`

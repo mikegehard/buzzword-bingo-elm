@@ -40,16 +40,20 @@ newEntry phrase points id =
 
 initialModel : Model
 initialModel =
-    { entries =
-        [ newEntry "Doing Agile" 200 2,
-          newEntry "In The Cloud" 300 3,
-          newEntry "Future-Proof" 100 1,
-          newEntry "Rock-Star Ninja" 400 4
-        ],
+    let
+        initialEntries =
+          [ newEntry "Doing Agile" 200 2,
+            newEntry "In The Cloud" 300 3,
+            newEntry "Future-Proof" 100 1,
+            newEntry "Rock-Star Ninja" 400 4
+          ]
+    in
+      {
+        entries = initialEntries,
         phraseInput = "",
         pointsInput = "",
-        nextID = 5
-    }
+        nextID = (List.length initialEntries)  + 1
+      }
 
 
 -- UPDATE
