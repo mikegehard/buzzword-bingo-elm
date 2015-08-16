@@ -14,7 +14,8 @@ import BingoUtils as Utils
 -- The full state of our app.
 
 type alias Model =
-    { entries : List Entry,
+    {
+      entries : List Entry,
       phraseInput : String,
       pointsInput : String,
       nextID : Int
@@ -22,7 +23,8 @@ type alias Model =
 
 
 type alias Entry =
-    { phrase: String,
+    {
+      phrase: String,
       points: Int,
       wasSpoken: Bool,
       id: Int
@@ -31,7 +33,8 @@ type alias Entry =
 
 newEntry : String -> Int -> Int -> Entry
 newEntry phrase points id =
-    { phrase = phrase,
+    {
+      phrase = phrase,
       points = points,
       wasSpoken = False,
       id = id
@@ -42,7 +45,8 @@ initialModel : Model
 initialModel =
     let
         initialEntries =
-          [ newEntry "Doing Agile" 200 2,
+          [
+            newEntry "Doing Agile" 200 2,
             newEntry "In The Cloud" 300 3,
             newEntry "Future-Proof" 100 1,
             newEntry "Rock-Star Ninja" 400 4
@@ -108,9 +112,11 @@ update action model =
           String.isEmpty model.phraseInput || String.isEmpty model.pointsInput
       in
         if isInvalid model
-        then model
+        then
+          model
         else
-          { model |
+          {
+            model |
               phraseInput <- "",
               pointsInput <- "",
               entries <- entryToAdd :: model.entries,
@@ -124,7 +130,8 @@ view : Address Action -> Model -> Html
 view address model =
   div
     [ id "container" ]
-    [ pageHeader,
+    [
+      pageHeader,
       entryForm address model,
       entryList address model.entries,
       button [ class "sort", onClick address Sort ] [ text "Sort" ],
@@ -165,7 +172,8 @@ totalItem: Int -> Html
 totalItem total =
   li
     [ class "total" ]
-    [ span [ class "label" ] [ text "Total" ],
+    [
+      span [ class "label" ] [ text "Total" ],
       span [ class "points" ] [ text (toString total) ]
     ]
 
@@ -176,7 +184,8 @@ entryItem address entry =
     [ classList [ ("highlight", entry.wasSpoken) ],
       onClick address (Mark entry.id)
     ]
-    [ span [ class "phrase" ] [ text entry.phrase ],
+    [
+      span [ class "phrase" ] [ text entry.phrase ],
       span [ class "points" ] [ text (toString entry.points) ],
       button [ class "delete", onClick address (Delete entry.id) ] []
     ]
@@ -195,7 +204,8 @@ entryForm : Address Action -> Model -> Html
 entryForm address model =
   div []
     [ input
-        [ type' "text",
+        [
+          type' "text",
           placeholder "Phrase",
           value model.phraseInput,
           name "phrase",
@@ -204,7 +214,8 @@ entryForm address model =
         ]
         [],
       input
-        [ type' "number",
+        [
+          type' "number",
           placeholder "Points",
           value model.pointsInput,
           name "points",
@@ -223,7 +234,8 @@ entryForm address model =
 main: Signal Html
 main =
   StartApp.start
-    { model = initialModel,
+    {
+      model = initialModel,
       view = view,
-     update = update
+      update = update
     }

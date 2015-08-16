@@ -541,7 +541,7 @@ Elm.Bingo.make = function (_elm) {
                                ,action._0]],
               model);}
          _U.badCase($moduleName,
-         "between lines 76 and 118");
+         "between lines 80 and 124");
       }();
    });
    var main = $StartApp.start({_: {}
