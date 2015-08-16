@@ -2,71 +2,77 @@
 
 1. What is Elm? 
 
-* "the best of functional programming in your browser"
-* [senior thesis](http://elm-lang.org/papers/concurrent-frp.pdf) 
-from [Evan Czaplicki](https://twitter.com/czaplic) who currently
-works at Prezi using Elm.
+    * "the best of functional programming in your browser"
+    * [senior thesis](http://elm-lang.org/papers/concurrent-frp.pdf) 
+    from [Evan Czaplicki](https://twitter.com/czaplic) who currently
+    works at Prezi using Elm.
 
 2. Why Elm?
 
-* High level framework for dealing with complex graphical layouts
-* Concurrent [Functional Reactive Programming](https://en.wikipedia.org/wiki/Functional_reactive_programming) 
-    * Declartive way to create systems that react to events.
-    * Programming focuses on what is displayed, runtime focues on how it is displayed
-    * Helps reduce complexity of programming GUIs.
-    * Concurrency increases GUI responsiveness
-    * [Thesis](http://elm-lang.org/papers/concurrent-frp.pdf) is a great read on the background of Elm.
+    * High level framework for dealing with complex graphical layouts
+    * Concurrent [Functional Reactive Programming](https://en.wikipedia.org/wiki/Functional_reactive_programming) 
+        * Declartive way to create systems that react to events.
+        * Programming focuses on what is displayed, runtime focues on how it is displayed
+        * Helps reduce complexity of programming GUIs.
+        * Concurrency increases GUI responsiveness
+        * [Thesis](http://elm-lang.org/papers/concurrent-frp.pdf) is a great read on the background of Elm.
 
-2. [Elm features](http://elm-lang.org/docs/syntax)
+3. [Elm features](http://elm-lang.org/docs/syntax)
 
-* Repl (elm repl)
-* Records - think JavaScript objects but they are immutable and have a type signature
+    * Repl (elm repl)
+    * Records - think JavaScript objects but they are immutable and have a type signature
 
-```
-type alias Person = { name: String, age: Int}
-mike = {name = "Mike", age = 42}
-changeAge person newAge = {person | age <- newAge}
-changeAge mike 43
+    ```
+    type alias Person = { name: String, age: Int}
+    mike = {name = "Mike", age = 42}
+    changeAge person newAge = {person | age <- newAge}
+    changeAge mike 43
+    ```
 
-```
+    * Type inference and static typing
+    * Pure functions
+    * Algabraic Data Types (aka Tagged Unions)
+    * Syntax is a mix of Haskell and F#
+    * [Community contributed packages](http://package.elm-lang.org/packages)
+    * [FRP constructs](http://elm-lang.org/guide/reactivity)
+        * Signal - stream of values that can be manipulated via core logic
+        * Task - model for asnyc operations that can fail
+        * Signals model incoming data, Tasks model outgoing data. Like monads that they
+            put all state mutation outside of pure functions.
+        * All are handled by the runtime and not the developer
+        * Still wrapping my head around these concepts and how to use them to do things
+            like HTTP calls.
+    * [Javascript interop](http://elm-lang.org/guide/interop)
 
-* Type inference and static typing
-* Pure functions
-* Syntax is a mix of Haskell and F#
-* [Community contributed packages](http://package.elm-lang.org/packages)
-* [FRP constructs](http://elm-lang.org/guide/reactivity) 
-    * Signal - stream of values that can be manipulated via core logic
-    * Task - model for asnyc operations that can fail
-    * Signals model incoming data, Tasks model outgoing data. Like monads that they
-        put all state mutation outside of pure functions.
-    * All are handled by the runtime and not the developer
-* [Javascript interop](http://elm-lang.org/guide/interop)
+4. Testing via [Elm-test](https://github.com/rtfeldman/node-elm-test)
 
-3. Testing via [Elm-test](https://github.com/rtfeldman/node-elm-test)
+    * Haven't gotten around to looking into this yet.
 
-Haven't gotten around to looking into this yet.
+5. [Elm Browser Application Architecture](https://github.com/evancz/elm-architecture-tutorial/)
 
-$. [Elm Browser Application Architecture](https://github.com/evancz/elm-architecture-tutorial/)
+    ```
+    Very similar to Flux/React in that is has a one way data flow.
 
-Very similar to Flux/React in that is has a one way data flow.
+    Flux
 
-Flux
+    Action(Data) --> Dispatcher --> Store --> View(VirtualDom) --
+                           ^                                     |
+                           |                                     |
+                           |                                     |
+                            -------------- Action(Data)----------
 
-Action(Data) --> Dispatcher --> Store --> View(VirtualDom) --
-                       ^                                     |
-                       |                                     |
-                       |                                     |
-                        -------------- Action(Data)----------
-                       
-Elm
+    Elm
 
-Action(Data) --> StartApp/Global Event Dispatcher --> Update/Model --> View(VirtualDom) --
-                       ^                                                     |
-                       |                                                     |
-                       |                                                     |
-                        --------------------- Action(Data)-------------------
-                        
-                        
-5. Code and a [running application](http://buzzword-bingo-elm.cfapps.io/)
+    Action(Data) --> StartApp/Global Event Dispatcher --> Update/Model --> View(VirtualDom) --
+                           ^                                                     |
+                           |                                                     |
+                           |                                                     |
+                            --------------------- Action(Data)-------------------
+    ```
 
+6. Code and a [running application](http://buzzword-bingo-elm.cfapps.io/)
 
+    * View function gets a reference to the address to send all actions to. No need to
+        set up callbacks. The Global Event Dispatcher takes care of that for you.
+    * HTML generated by calling functions. This is similar to JSX in React except
+        JSX has an additional step of translation to Javascript function.
